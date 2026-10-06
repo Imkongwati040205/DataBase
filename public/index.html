@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eee8ff">
+  <title>Papertrail — Shared Document Library</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/collaboration.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Papertrail home">
+        <span class="brand-mark" aria-hidden="true">P</span><span>papertrail</span>
+      </a>
+      <div id="signed-in-bar" class="signed-in-bar" hidden>
+        <span class="secure-label"><span class="secure-dot"></span> Private workspace</span>
+        <span id="user-name" class="user-name"></span>
+        <button id="logout-button" class="button button-quiet" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="auth-view" class="auth-layout">
+        <div class="intro auth-intro">
+          <div>
+            <p class="eyebrow">YOUR PERSONAL LIBRARY</p>
+            <h1>All your important files,<br><span>in one calm place.</span></h1>
+            <p class="intro-copy">Keep documents organized, track every version, and work together with people you trust.</p>
+          </div>
+          <div class="intro-art" aria-hidden="true"><div class="art-glow"></div><div class="art-sheet sheet-back"></div><div class="art-sheet sheet-front"><span></span><span></span><span></span><b>PDF</b></div><div class="art-sparkle sparkle-one">✦</div><div class="art-sparkle sparkle-two">✳</div></div>
+        </div>
+
+        <section class="auth-card" aria-labelledby="auth-title">
+          <div class="auth-card-heading"><span class="step-badge">01</span><div><p class="eyebrow light-eyebrow">WELCOME TO PAPERTRAIL</p><h2 id="auth-title">Sign in to your library</h2><p id="auth-subtitle">Pick up where you left off.</p></div></div>
+          <div id="auth-status" class="status" role="status" aria-live="polite" hidden></div>
+          <form id="auth-form" class="auth-form">
+            <label id="name-field" class="form-field" hidden><span>Your name</span><input id="display-name" name="displayName" autocomplete="name" maxlength="80" placeholder="Alex Morgan"></label>
+            <label class="form-field"><span>Email address</span><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+            <label class="form-field"><span>Password</span><input id="password" name="password" type="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"></label>
+            <button id="auth-submit" class="button button-primary auth-submit" type="submit">Sign in <span aria-hidden="true">↗</span></button>
+          </form>
+          <p class="auth-switch"><span id="auth-switch-copy">New here?</span> <button id="auth-switch-button" type="button">Create an account</button></p>
+          <p class="auth-footnote">Your documents are only visible to you and people you share them with.</p>
+        </section>
+      </section>
+
+      <section id="app-view" class="app-layout" hidden>
+        <section class="dashboard-hero">
+          <div><p class="eyebrow">YOUR PERSONAL LIBRARY</p><h1>Good to see you,<br><span id="welcome-name">friend</span>.</h1><p class="intro-copy">A tidy home for your important documents and shared work.</p></div>
+          <div class="hero-stat"><span class="stat-icon" aria-hidden="true">▤</span><strong id="document-count">0</strong><small>documents</small></div>
+          <div class="hero-stat"><span class="stat-icon mint-icon" aria-hidden="true">↻</span><strong id="version-count">0</strong><small>saved versions</small></div>
+        </section>
+
+        <section class="upload-card" aria-labelledby="upload-heading">
+          <div class="section-heading"><div class="step-badge">01</div><div><h2 id="upload-heading">Add a document</h2><p>PDF, PNG, or JPG · up to 5 MB per version</p></div></div>
+          <form id="upload-form">
+            <label class="dropzone" id="dropzone" for="file">
+              <input id="file" name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" required>
+              <span class="upload-icon" aria-hidden="true">↑</span><span class="dropzone-text"><strong id="file-label">Choose a file</strong><small>or drag and drop it here</small></span><span class="browse-pill">Browse files</span>
+            </label>
+            <div class="upload-actions"><span class="form-hint">A new library item starts at version 1.</span><button id="upload-button" class="button button-primary" type="submit"><span>Upload document</span><span aria-hidden="true">↗</span></button></div>
+          </form>
+        </section>
+
+        <section class="library" aria-labelledby="library-heading">
+          <div class="library-top"><div class="section-heading"><div class="step-badge step-badge-lavender">02</div><div><h2 id="library-heading">Your library</h2><p id="library-subtitle">Your documents and shared work.</p></div></div><label class="search-box" for="search-input"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Find a file…" autocomplete="off"></label></div>
+          <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+          <div id="document-list" class="document-list"></div>
+          <div id="empty-state" class="empty-state" hidden><div class="empty-icon" aria-hidden="true">▧</div><h3 id="empty-title">Nothing here yet</h3><p id="empty-copy">Upload a document to begin your library.</p></div>
+          <div class="library-footer"><span class="footer-star">✦</span> Neat files. Clear mind.</div>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="document-dialog" class="detail-dialog">
+      <div class="dialog-head"><div><p class="eyebrow light-eyebrow">DOCUMENT WORKSPACE</p><h2 id="dialog-title">Document</h2><span id="dialog-role" class="role-badge"></span></div><button id="dialog-close" class="close-button" type="button" aria-label="Close">×</button></div>
+      <div class="dialog-content">
+        <section class="detail-section"><div class="detail-section-heading"><div><h3>Version history</h3><p>Every saved revision stays available.</p></div></div><form id="version-form" class="version-form"><label class="version-pick" for="version-file"><span>＋</span><span><b>Upload a newer version</b><small>PDF, PNG, or JPG · 5 MB max</small></span><input id="version-file" name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" required></label><button id="version-submit" class="button button-primary" type="submit">Save version</button></form><div id="version-list" class="version-list"></div></section>
+
+        <section id="sharing-section" class="detail-section sharing-section"><div class="detail-section-heading"><div><h3>People & access</h3><p>Share this document with a registered account.</p></div></div><form id="share-form" class="share-form"><label class="share-email" for="share-email"><span class="visually-hidden">Collaborator email</span><input id="share-email" type="email" placeholder="collaborator@example.com" required></label><label class="visually-hidden" for="share-role">Access level</label><select id="share-role"><option value="viewer">Can view</option><option value="editor">Can edit</option></select><button class="button button-primary" type="submit">Share</button></form><div id="collaborator-list" class="collaborator-list"></div></section>
+
+        <section class="detail-section comments-section"><div class="detail-section-heading"><div><h3>Conversation</h3><p>Leave a note for everyone on this document.</p></div></div><div id="comment-list" class="comment-list"></div><form id="comment-form" class="comment-form"><label class="visually-hidden" for="comment-body">Write a comment</label><textarea id="comment-body" rows="2" maxlength="2000" placeholder="Write a comment…" required></textarea><button class="button button-primary" type="submit">Post note</button></form></section>
+        <div id="detail-status" class="status" role="status" aria-live="polite" hidden></div>
+      </div>
+    </dialog>
+    <footer class="site-footer"><span>Papertrail</span><span>Versioned documents, shared thoughtfully</span></footer>
+  </div>
+</body>
+</html>
