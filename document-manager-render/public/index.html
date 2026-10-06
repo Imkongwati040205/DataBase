@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f4fb">
+  <title>Papertrail — Document Manager</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Papertrail home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>papertrail</span>
+      </a>
+      <span class="secure-label"><span class="secure-dot"></span> Private workspace</span>
+    </header>
+
+    <main class="layout">
+      <section class="intro">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL LIBRARY</p>
+          <h1>All your important files,<br><span>in one calm place.</span></h1>
+          <p class="intro-copy">Keep notes, forms, and documents organized and ready whenever you need them.</p>
+        </div>
+        <div class="intro-art" aria-hidden="true">
+          <div class="art-glow"></div>
+          <div class="art-sheet sheet-back"></div>
+          <div class="art-sheet sheet-front"><span></span><span></span><span></span><b>PDF</b></div>
+          <div class="art-sparkle sparkle-one">✦</div>
+          <div class="art-sparkle sparkle-two">✳</div>
+        </div>
+      </section>
+
+      <section class="upload-card" aria-labelledby="upload-heading">
+        <div class="section-heading">
+          <div class="step-badge">01</div>
+          <div>
+            <h2 id="upload-heading">Add a document</h2>
+            <p>PDF, PNG, or JPG · up to 5 MB</p>
+          </div>
+        </div>
+
+        <form id="upload-form">
+          <label class="dropzone" id="dropzone" for="file">
+            <input id="file" name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" required>
+            <span class="upload-icon" aria-hidden="true">↑</span>
+            <span class="dropzone-text"><strong id="file-label">Choose a file</strong><small>or drag and drop it here</small></span>
+            <span class="browse-pill">Browse files</span>
+          </label>
+          <div class="upload-actions">
+            <span class="form-hint">Your file is stored with a private generated filename.</span>
+            <button id="upload-button" class="button button-primary" type="submit"><span>Upload document</span><span aria-hidden="true">↗</span></button>
+          </div>
+        </form>
+      </section>
+
+      <section class="library" aria-labelledby="library-heading">
+        <div class="library-top">
+          <div class="section-heading">
+            <div class="step-badge step-badge-lavender">02</div>
+            <div>
+              <h2 id="library-heading">Your library</h2>
+              <p id="library-subtitle">Your saved documents appear here.</p>
+            </div>
+          </div>
+          <label class="search-box" for="search-input">
+            <span aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" placeholder="Find a file…" autocomplete="off">
+          </label>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+        <div id="document-list" class="document-list"></div>
+        <div id="empty-state" class="empty-state" hidden>
+          <div class="empty-icon" aria-hidden="true">▧</div>
+          <h3 id="empty-title">Nothing here yet</h3>
+          <p id="empty-copy">Upload your first document and it will show up here.</p>
+        </div>
+        <div class="library-footer"><span class="footer-star">✦</span> Neat files. Clear mind.</div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>Papertrail</span><span>Simple document management</span></footer>
+  </div>
+</body>
+</html>
